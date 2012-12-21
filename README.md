@@ -1,6 +1,6 @@
 # Sortable
 
-TODO: Write a gem description
+[the idea/scratch work](https://gist.github.com/e8dbf5c651f6744faeda)
 
 ## Installation
 
