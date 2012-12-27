@@ -1,20 +1,17 @@
-require 'sortable'
-
 module Sortable
   class Railtie < Rails::Railtie
     initializer 'sortable' do |app|
       ActiveSupport.on_load :active_record do
-        require 'sortable/active_record'
+        include Sortable::ActiveRecord
       end
       
       ActiveSupport.on_load :action_controller do
-        require 'sortable/action_controller'
         include Sortable::ActionController
         helper_method :sort_column, :sort_direction
       end
       
       ActiveSupport.on_load :action_view do
-        require 'sortable/action_view'
+        include Sortable::ActionView
       end
     end
   end

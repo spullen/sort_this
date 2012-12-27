@@ -1,4 +1,3 @@
-
 module Sortable
   module ActionView
     
@@ -9,6 +8,5 @@ module Sortable
       link_to title, {:controller => controller_name, :action => action_name, :sort => column, :direction => direction}, {:class => css_class}.merge(html_options)
     end
     
-    ::ActionView::Base.send :include, self
   end
 end

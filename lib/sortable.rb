@@ -1,10 +1,8 @@
-require "sortable/version"
+require 'sortable/version'
+require 'sortable/active_record'
+require 'sortable/action_controller'
+require 'sortable/action_view'
+require 'sortable/railtie' if defined?(Rails)
 
 module Sortable
-end
-
-if defined?(Rails::Railtie)
-  require 'sortable/railtie'
-elsif defined?(Rails::Initializer)
-  raise "sortable is not compatible with Rails 2.3 or older"
 end
