@@ -150,7 +150,12 @@ describe Sortable::ActiveRecord do
   end
   
   describe '.sort' do
-  
+    before(:each) do
+      Quote.sortable :price         => {:column_name => :price, :default => 'ASC'},
+                     :quantity      => {:column_name => :quantity},
+                     :product_name  => {:column_name => :name, :joins => :product},
+                     :vendor_name   => {:column_name => :name, :joins => :vendor}
+    end
   end
   
 end
