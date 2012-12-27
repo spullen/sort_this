@@ -1,3 +1,5 @@
+require 'action_controller'
+
 module Sortable
   module ActionController
     def self.included(base)
