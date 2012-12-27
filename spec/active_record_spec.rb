@@ -107,6 +107,46 @@ describe Sortable::ActiveRecord do
         Quote.default_sort_columns.should == {}
       end
     end
+    
+    context 'given a sort column with a custom clause specified in the sort options' do
+      let!(:sort_name)          { :price }
+      let!(:column_name_option) { :price }
+      let!(:default_option)     { nil }
+      let!(:joins_option)       { nil }
+      let!(:clause_option)      { "custom.joins_clause" }
+    
+      before(:each) do
+        Quote.sortable sort_name => {:column_name => column_name_option, :clause => clause_option}
+      end
+      
+      it_should_behave_like 'sort_columns_defined'
+      
+      it 'should set default_sort_columns to an empty hash' do
+        Quote.default_sort_columns.should == {}
+      end
+    end
+    
+    context 'given a sort column with a custom clause and default specified in the sort options' do
+      let!(:sort_name)          { :quantity }
+      let!(:column_name_option) { :quantity }
+      let!(:default_option)     { 'DESC' }
+      let!(:joins_option)       { nil }
+      let!(:clause_option)      { "custom.joins_clause" }
+    
+      before(:each) do
+        Quote.sortable sort_name => {:column_name => column_name_option, :default => default_option, :clause => clause_option}
+      end
+      
+      it_should_behave_like 'sort_columns_defined'
+      
+      it 'should set the default_sort_columns options for the specified sort name' do
+        Quote.default_sort_columns.should have_key(sort_name)
+      end
+      
+      it 'should set the clause of the default_sort_columns for the specified sort name' do
+        Quote.default_sort_columns[sort_name].should == "#{clause_option} #{default_option}"
+      end
+    end
   end
   
   describe '.sort' do
