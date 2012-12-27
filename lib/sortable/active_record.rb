@@ -30,7 +30,7 @@ module Sortable
       #}
       
       #
-      # Input is an array of sort options
+      # Input is a hash of sort_name => sort_options pairs
       #
       # :column_name  => (required) Column name to sort on
       # :default      => (optional) 'ASC'|'DESC'
@@ -44,16 +44,33 @@ module Sortable
       #
       # sorting on the quotes table
       #
-      # { :column_name => :quantity }
-      # { :column_name => :price, :default => 'DESC' }
-      # { :column_name => :name, :joins => :product }
+      # :sort_name1 => { :column_name => :quantity }
+      # :sort_name2 => { :column_name => :price, :default => 'DESC' }
+      # :sort_name3 => { :column_name => :name, :joins => :product }
       #
-      def sortable(*sorts)
+      def sortable(sorts = {})
         self.sort_columns = {}
         self.default_sort_columns = {}
         
-        sorts.each do |sort|
+        empty_sort_options = { :column_name => nil, :default => nil, :joins => nil, :clause => nil }
         
+        sorts.each do |sort_name, sort_options|
+          sort_options = empty_sort_options.merge(sort_options)
+          
+          self.sort_columns[sort_name] = sort_options
+          
+          column  = sort_options[:column_name] # TODO: raise exception if this is nil
+          table   = (sort_options[:joins].blank?)   ? table_name            : sort_options[:joins].to_s.pluralize
+          clause  = (sort_options[:clause].blank?)  ? "#{table}.#{column}"  : sort_options[:clause]
+          
+          self.sort_columns[sort_name][:clause] = clause if sort_options[:clause].blank?
+          
+          unless sort_options[:default].blank?
+            # TODO: raise exception if the default is not ASC|DESC
+            default_sort_direction = sort_options[:default].upcase
+            self.default_sort_columns[sort_name] = "#{clause} #{default_sort_direction}"
+          end
+          
         end
       end
       

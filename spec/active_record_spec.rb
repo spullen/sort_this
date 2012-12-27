@@ -11,7 +11,21 @@ describe Sortable::ActiveRecord do
   end
   
   describe '.sortable' do
-  
+    
+    context 'given no parameters' do
+      before(:each) do
+        Quote.sortable()
+      end
+    
+      it 'should set sort_columns to an empty hash' do
+        Quote.sort_columns.should == {}
+      end
+      
+      it 'should set default_sort_columns to an empty hash' do
+        Quote.default_sort_columns.should == {}
+      end
+    end
+    
   end
   
   describe '.sort' do
