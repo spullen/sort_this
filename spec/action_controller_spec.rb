@@ -1,8 +1,12 @@
 require 'spec_helper'
 
-class TestController < AbstractController::Base
+class TestController < ActionController::Base
   include Sortable::ActionController
   sortable "price"
+  
+  def index
+    render :text => 'OK'
+  end
 end
 
 # get access to the protected methods
@@ -19,6 +23,7 @@ describe Sortable::ActionController do
   end
   
   describe 'instance methods' do
+    subject { @controller }
   
     before(:each) do
       @controller = TestController.new
@@ -30,6 +35,29 @@ describe Sortable::ActionController do
     
     it 'should respond to sort_direction' do
       @controller.should respond_to(:sort_direction)
+    end
+    
+    describe '#sort_column' do
+      
+      context 'given that the sort param is not set' do
+        it 'should return the default sort column' do
+          @controller.stub!(:params).and_return({})
+          @controller.sort_column.should == "price"
+        end
+      end
+      
+      context 'given that the sort param is set' do
+        it 'should return the sort provided by the param' do
+          sort = "quantity"
+          @controller.stub!(:params).and_return({:sort => sort})
+          @controller.sort_column.should == sort
+        end
+      end
+      
+    end
+    
+    describe '#sort_direction' do
+    
     end
   
   end
