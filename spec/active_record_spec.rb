@@ -58,13 +58,35 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "quotes.price" }
     
       before(:each) do
-        Quote.sortable :price => {:column_name => :price}
+        Quote.sortable sort_name => {:column_name => column_name_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
       
       it 'should set default_sort_columns to an empty hash' do
         Quote.default_sort_columns.should == {}
+      end
+    end
+    
+    context 'given a sort column with a default specified in the sort options' do
+      let!(:sort_name)          { :price }
+      let!(:column_name_option) { :price }
+      let!(:default_option)     { 'DESC' }
+      let!(:joins_option)       { nil }
+      let!(:clause_option)      { "quotes.price" }
+    
+      before(:each) do
+        Quote.sortable sort_name => {:column_name => column_name_option, :default => default_option}
+      end
+      
+      it_should_behave_like 'sort_columns_defined'
+      
+      it 'should set the default_sort_columns options for the specified sort name' do
+        Quote.default_sort_columns.should have_key(sort_name)
+      end
+      
+      it 'should set the clause of the default_sort_columns for the specified sort name' do
+        Quote.default_sort_columns[sort_name].should == "#{clause_option} #{default_option}"
       end
     end
     
@@ -76,7 +98,7 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "products.name" }
 
       before(:each) do
-        Quote.sortable :product_name => {:column_name => :name, :joins => :product}
+        Quote.sortable sort_name => {:column_name => column_name_option, :joins => joins_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
