@@ -69,8 +69,20 @@ describe Sortable::ActiveRecord do
     end
     
     context 'given a sort column with a joins specified in the sort options' do
+      let!(:sort_name)          { :product_name }
+      let!(:column_name_option) { :name }
+      let!(:default_option)     { nil }
+      let!(:joins_option)       { :product }
+      let!(:clause_option)      { "products.name" }
+
       before(:each) do
         Quote.sortable :product_name => {:column_name => :name, :joins => :product}
+      end
+      
+      it_should_behave_like 'sort_columns_defined'
+      
+      it 'should set default_sort_columns to an empty hash' do
+        Quote.default_sort_columns.should == {}
       end
     end
   end
