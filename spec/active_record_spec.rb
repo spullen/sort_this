@@ -1,6 +1,23 @@
 require 'spec_helper'
 
 describe Sortable::ActiveRecord do
+
+  before(:all) do
+    setup_db
+    DatabaseCleaner.strategy = :truncation
+  end
+  
+  after(:all) do
+    teardown_db
+  end
+  
+  before(:each) do
+    DatabaseCleaner.start
+  end
+
+  after(:each) do
+    DatabaseCleaner.clean
+  end
   
   it 'should have a sortable class method' do
     Quote.should respond_to(:sortable)
