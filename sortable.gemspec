@@ -19,8 +19,9 @@ Gem::Specification.new do |gem|
   
   gem.add_dependency 'rails', '>= 3.0'
   
-  gem.add_development_dependency 'debugger'
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'sqlite3'
-  #gem.add_development_dependency 'with_model'
+  gem.add_development_dependency 'debugger', '1.2.2'
+  gem.add_development_dependency 'rspec', '2.12.0'
+  gem.add_development_dependency 'sqlite3', '1.3.6'
+  gem.add_development_dependency 'factory_girl', '4.1.0'
+  gem.add_development_dependency 'database_cleaner', '0.9.1'
 end
