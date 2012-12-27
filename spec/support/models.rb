@@ -43,8 +43,8 @@ class Quote < ActiveRecord::Base
   belongs_to :product
   belongs_to :vendor
   
-  sortable :price         => {:column_name => :price, :default => 'ASC'},
-           :quantity      => {:column_name => :quantity},
-           :product_name  => {:column_name => :name, :joins => :product},
-           :vendor_name   => {:column_name => :name, :joins => :vendor}
+  #sortable :price         => {:column_name => :price, :default => 'ASC'},
+  #         :quantity      => {:column_name => :quantity},
+  #         :product_name  => {:column_name => :name, :joins => :product},
+  #         :vendor_name   => {:column_name => :name, :joins => :vendor}
 end
