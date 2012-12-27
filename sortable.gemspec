@@ -21,4 +21,5 @@ Gem::Specification.new do |gem|
   
   gem.add_development_dependency 'debugger'
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'with_model'
 end
