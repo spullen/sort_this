@@ -29,11 +29,32 @@ module Sortable
       #  :price    => 'quotes.price ASC'
       #}
       
+      #
+      # Input is an array of sort options
+      #
+      # :column_name  => (required) Column name to sort on
+      # :default      => (optional) 'ASC'|'DESC'
+      # :joins        => (optional) Association to join on. Note: must be an association of the model being sorted.
+      #                             Prefixes the column_name with the table name to prevent collisions
+      # :clause       => (optional) Override the clause of the sort
+      #
+      # ex.
+      # products  have many  quotes
+      # vendors   have many  quotes
+      #
+      # sorting on the quotes table
+      #
+      # { :column_name => :quantity }
+      # { :column_name => :price, :default => 'DESC' }
+      # { :column_name => :name, :joins => :product }
+      #
       def sortable(*sorts)
         self.sort_columns = {}
         self.default_sort_columns = {}
         
+        sorts.each do |sort|
         
+        end
       end
       
       def sort(sort_column = nil, sort_direction = DEFAULT_SORT_DIRECTION)
