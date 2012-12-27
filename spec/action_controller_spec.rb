@@ -38,7 +38,6 @@ describe Sortable::ActionController do
     end
     
     describe '#sort_column' do
-      
       context 'given that the sort param is not set' do
         it 'should return the default sort column' do
           @controller.stub!(:params).and_return({})
@@ -47,18 +46,35 @@ describe Sortable::ActionController do
       end
       
       context 'given that the sort param is set' do
-        it 'should return the sort provided by the param' do
+        it 'should return the sort provided by the params' do
           sort = "quantity"
           @controller.stub!(:params).and_return({:sort => sort})
           @controller.sort_column.should == sort
         end
       end
-      
     end
     
     describe '#sort_direction' do
-    
+      context 'given that the direction param is not set' do
+        it 'should return the default sort direction' do
+          @controller.stub!(:params).and_return({})
+          @controller.sort_direction.should == "asc"
+        end
+      end
+      
+      context 'given that the direction param is set' do
+        it 'should return the sort direction provided by the params' do
+          @controller.stub!(:params).and_return({:direction => "desc"})
+          @controller.sort_direction.should == "desc"
+        end
+        
+        context 'when the param is invalid' do
+          it 'should return the default sort direction' do
+            @controller.stub!(:params).and_return({})
+            @controller.sort_direction.should == "asc"
+          end
+        end
+      end
     end
-  
   end
 end
