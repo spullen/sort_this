@@ -13,7 +13,7 @@ module Sortable
       # not sure if the action view stuff will work the same way, not see any examples
       # try ActionView::Base.send :include, Sortable::ActionView if it doesn't
       ActiveSupport.on_load :action_view do
-        include Sortable::ActionView
+        include Sortable::ViewHelpers::ActionView
       end
     end
   end
