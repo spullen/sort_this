@@ -9,6 +9,8 @@ module Sortable
       
       ActiveSupport.on_load :action_controller do
         require 'sortable/action_controller'
+        include Sortable::ActionController
+        helper_method :sort_column, :sort_direction
       end
       
       ActiveSupport.on_load :action_view do
