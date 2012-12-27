@@ -2,6 +2,7 @@ require 'spec_helper'
 
 class TestController < AbstractController::Base
   include Sortable::ActionController
+  sortable "price"
 end
 
 # get access to the protected methods
@@ -11,6 +12,10 @@ describe Sortable::ActionController do
   
   it 'should respond to sortable' do
     TestController.should respond_to(:sortable)
+  end
+  
+  it 'should set the default sort column' do
+    TestController.default_sort_column.should == "price"
   end
   
   describe 'instance methods' do
