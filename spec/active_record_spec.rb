@@ -67,6 +67,16 @@ describe SortThis::ActiveRecord do
       end
     end
     
+    context 'given a sort column that does not specify the column name' do
+      let!(:sort_name) { :test }
+      
+      it 'should raise a SortThisError' do
+        lambda {
+          Quote.sort_this sort_name => {}
+        }.should raise_error(SortThis::SortThisError, "column_name option for #{sort_name} is required.")
+      end
+    end
+    
     context 'given a sort column with just the required sort options' do
       let!(:sort_name)          { :price }
       let!(:column_name_option) { :price }
@@ -115,7 +125,7 @@ describe SortThis::ActiveRecord do
         let!(:joins_option)       { nil }
         let!(:clause_option)      { "custom.joins_clause" }
       
-        it 'should raise a SortDirectionError' do
+        it 'should raise a SortThisError' do
           lambda {
             Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option, :clause => clause_option}
           }.should raise_error(SortThis::SortThisError, "Invalid sort direction for: #{sort_name}. Must be 'ASC'/'asc' or 'DESC'/'desc'.")

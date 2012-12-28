@@ -46,7 +46,10 @@ module SortThis
           
           self.sort_columns[sort_name] = sort_options
           
-          column  = sort_options[:column_name] # TODO: raise exception if this is nil
+          column  = sort_options[:column_name]
+          
+          raise SortThisError, "column_name option for #{sort_name} is required." if column.blank?
+          
           table   = (sort_options[:joins].blank?)   ? table_name            : sort_options[:joins].to_s.pluralize
           clause  = (sort_options[:clause].blank?)  ? "#{table}.#{column}"  : sort_options[:clause]
           
