@@ -4,10 +4,10 @@ require 'spec_helper'
 # check out https://github.com/mislav/will_paginate/blob/master/spec/view_helpers/action_view_spec.rb#L28
 
 class TestActionView < ActionView::Base
-  include Sortable::ViewHelpers::ActionView
+  include SortThis::ViewHelpers::ActionView
 end
 
-describe Sortable::ViewHelpers::ActionView do
+describe SortThis::ViewHelpers::ActionView do
   
   let!(:params_base) { {:controller => 'quotes', :action => 'index'} }
   

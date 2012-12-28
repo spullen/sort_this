@@ -6,7 +6,7 @@ require 'database_cleaner'
 require 'capybara'
 require 'rspec'
 
-require 'sortable'
+require 'sort_this'
 
 Dir[File.expand_path("support/**/*.rb", File.dirname(__FILE__))].each {|f| require f}
 

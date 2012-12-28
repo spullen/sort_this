@@ -1,7 +1,7 @@
 require 'memoist'
 require 'active_record'
 
-module Sortable
+module SortThis
   module ActiveRecord
     def self.included(base)
       base.class_eval do
@@ -35,7 +35,7 @@ module Sortable
       # :sort_name2 => { :column_name => :price, :default => 'DESC' }
       # :sort_name3 => { :column_name => :name, :joins => :product }
       #
-      def sortable(sorts = {})
+      def sort_this(sorts = {})
         self.sort_columns = {}
         self.default_sort_columns = {}
         

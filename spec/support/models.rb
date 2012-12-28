@@ -38,7 +38,7 @@ class Vendor < ActiveRecord::Base
 end
 
 class Quote < ActiveRecord::Base
-  include Sortable::ActiveRecord
+  include SortThis::ActiveRecord
 
   belongs_to :product
   belongs_to :vendor

@@ -1,6 +1,6 @@
 require 'action_controller'
 
-module Sortable
+module SortThis
   module ActionController
     def self.included(base)
       base.class_eval do

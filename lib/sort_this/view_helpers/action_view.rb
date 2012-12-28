@@ -1,6 +1,6 @@
 require 'action_view'
 
-module Sortable
+module SortThis
   module ViewHelpers
     module ActionView
       

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Sortable::ActiveRecord do
+describe SortThis::ActiveRecord do
 
   before(:all) do
     setup_db
@@ -19,15 +19,15 @@ describe Sortable::ActiveRecord do
     DatabaseCleaner.clean
   end
   
-  it 'should have a sortable class method' do
-    Quote.should respond_to(:sortable)
+  it 'should have a sort_this class method' do
+    Quote.should respond_to(:sort_this)
   end
   
   it 'should have a sort class method' do
     Quote.should respond_to(:sort)
   end
   
-  describe '.sortable' do
+  describe '.sort_this' do
   
     shared_examples_for 'sort_columns_defined' do
       it 'should set the sort_columns options for the specified sort name' do
@@ -55,7 +55,7 @@ describe Sortable::ActiveRecord do
     
     context 'given no parameters' do
       before(:each) do
-        Quote.sortable()
+        Quote.sort_this()
       end
     
       it 'should set sort_columns to an empty hash' do
@@ -75,7 +75,7 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "quotes.price" }
     
       before(:each) do
-        Quote.sortable sort_name => {:column_name => column_name_option}
+        Quote.sort_this sort_name => {:column_name => column_name_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
@@ -93,7 +93,7 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "quotes.price" }
     
       before(:each) do
-        Quote.sortable sort_name => {:column_name => column_name_option, :default => default_option}
+        Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
@@ -115,7 +115,7 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "products.name" }
 
       before(:each) do
-        Quote.sortable sort_name => {:column_name => column_name_option, :joins => joins_option}
+        Quote.sort_this sort_name => {:column_name => column_name_option, :joins => joins_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
@@ -133,7 +133,7 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "custom.joins_clause" }
     
       before(:each) do
-        Quote.sortable sort_name => {:column_name => column_name_option, :clause => clause_option}
+        Quote.sort_this sort_name => {:column_name => column_name_option, :clause => clause_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
@@ -151,7 +151,7 @@ describe Sortable::ActiveRecord do
       let!(:clause_option)      { "custom.joins_clause" }
     
       before(:each) do
-        Quote.sortable sort_name => {:column_name => column_name_option, :default => default_option, :clause => clause_option}
+        Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option, :clause => clause_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
@@ -183,10 +183,10 @@ describe Sortable::ActiveRecord do
     let!(:quote4) { create(:quote, :product => product4, :vendor => vendor3, :price => 15.12, :quantity => 8) } 
   
     before(:each) do
-      Quote.sortable :price         => {:column_name => :price, :default => 'ASC'},
-                     :quantity      => {:column_name => :quantity},
-                     :product_name  => {:column_name => :name, :joins => :product},
-                     :vendor_name   => {:column_name => :name, :joins => :vendor}
+      Quote.sort_this :price         => {:column_name => :price, :default => 'ASC'},
+                      :quantity      => {:column_name => :quantity},
+                      :product_name  => {:column_name => :name, :joins => :product},
+                      :vendor_name   => {:column_name => :name, :joins => :vendor}
     end
     
     context 'default parameters' do

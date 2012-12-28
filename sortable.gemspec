@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'sortable/version'
+require 'sort_this/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "sortable"
-  gem.version       = Sortable::VERSION
+  gem.name          = "sort_this"
+  gem.version       = SortThis::VERSION
   gem.authors       = ["Scott Pullen"]
   gem.email         = ["s.pullen05@gmail.com"]
-  gem.description   = %q{Sortable}
-  gem.summary       = %q{Sortable}
-  gem.homepage      = "https://github.com/spullen/sortable"
+  gem.description   = %q{SortThis}
+  gem.summary       = %q{SortThis}
+  gem.homepage      = "https://github.com/spullen/sort_this"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

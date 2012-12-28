@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class TestController < ActionController::Base
-  include Sortable::ActionController
+  include SortThis::ActionController
   sortable "price"
   
   def index
@@ -12,7 +12,7 @@ end
 # get access to the protected methods
 TestController.send(:public, *TestController.protected_instance_methods)
 
-describe Sortable::ActionController do
+describe SortThis::ActionController do
   
   it 'should respond to sortable' do
     TestController.should respond_to(:sortable)

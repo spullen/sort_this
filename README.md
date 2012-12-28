@@ -1,6 +1,6 @@
-# Sortable
+# SortThis
 
-Sortable provides a way to sort.
+SortThis provides a way to sort.
 
 The controller/view code is based off of railscasts [episode 228 - Sortable Table Columns](http://railscasts.com/episodes/228-sortable-table-columns).
 
@@ -10,7 +10,7 @@ Here is an [example app](https://github.com/spullen/sort_example) that demonstra
 
 Add this line to your application's Gemfile:
 
-    gem 'sortable', :git => 'git://github.com/spullen/sortable.git'
+    gem 'sort_this', :git => 'git://github.com/spullen/sort_this.git'
 
 And then execute:
 
@@ -24,7 +24,7 @@ Add a call to the `sortable` method with a hash of sorts
 
     class YourModel < ActiveRecord::Base
       
-      sortable :sort_name => {:column_name => :name, :default => 'ASC', :joins => :association, :clause => "some.clause"}
+      sort_this :sort_name => {:column_name => :name, :default => 'ASC', :joins => :association, :clause => "some.clause"}
       
     end
     
