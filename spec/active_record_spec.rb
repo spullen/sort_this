@@ -86,24 +86,40 @@ describe SortThis::ActiveRecord do
     end
     
     context 'given a sort column with a default specified in the sort options' do
-      let!(:sort_name)          { :price }
-      let!(:column_name_option) { :price }
-      let!(:default_option)     { 'DESC' }
-      let!(:joins_option)       { nil }
-      let!(:clause_option)      { "quotes.price" }
-    
-      before(:each) do
-        Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option}
+      context 'when the default is valid' do
+        let!(:sort_name)          { :price }
+        let!(:column_name_option) { :price }
+        let!(:default_option)     { 'DESC' }
+        let!(:joins_option)       { nil }
+        let!(:clause_option)      { "quotes.price" }
+      
+        before(:each) do
+          Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option}
+        end
+        
+        it_should_behave_like 'sort_columns_defined'
+        
+        it 'should set the default_sort_columns options for the specified sort name' do
+          Quote.default_sort_columns.should have_key(sort_name)
+        end
+        
+        it 'should set the clause of the default_sort_columns for the specified sort name' do
+          Quote.default_sort_columns[sort_name].should == "#{clause_option} #{default_option}"
+        end
       end
       
-      it_should_behave_like 'sort_columns_defined'
+      context 'when the default is not ASC or DESC' do
+        let!(:sort_name)          { :quantity }
+        let!(:column_name_option) { :quantity }
+        let!(:default_option)     { 'GARBAGE' }
+        let!(:joins_option)       { nil }
+        let!(:clause_option)      { "custom.joins_clause" }
       
-      it 'should set the default_sort_columns options for the specified sort name' do
-        Quote.default_sort_columns.should have_key(sort_name)
-      end
-      
-      it 'should set the clause of the default_sort_columns for the specified sort name' do
-        Quote.default_sort_columns[sort_name].should == "#{clause_option} #{default_option}"
+        it 'should raise a SortDirectionError' do
+          lambda {
+            Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option, :clause => clause_option}
+          }.should raise_error(SortThis::SortDirectionError, "Invalid sort direction for: #{sort_name}. Must be 'ASC'/'asc' or 'DESC'/'desc'")
+        end
       end
     end
     

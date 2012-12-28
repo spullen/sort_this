@@ -1,4 +1,5 @@
 require 'sort_this/version'
+require 'sort_this/sort_direction_error'
 require 'sort_this/active_record'
 require 'sort_this/action_controller'
 require 'sort_this/view_helpers/action_view'
