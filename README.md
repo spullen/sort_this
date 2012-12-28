@@ -1,4 +1,4 @@
-# SortThis [![Build Status](https://secure.travis-ci.org/spullen/sort_this.png)](http://travis-ci.org/spullen/sort_this)]
+# SortThis [![Build Status](https://secure.travis-ci.org/spullen/sort_this.png)](http://travis-ci.org/spullen/sort_this)
 
 SortThis provides a way to sort.
 
