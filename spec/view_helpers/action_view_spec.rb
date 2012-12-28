@@ -5,12 +5,12 @@ class TestActionView < ActionView::Base
 end
 
 describe Sortable::ViewHelpers::ActionView do
-  subject { @helper }
   
   let!(:params_base) { {:controller => 'quotes', :action => 'index'} }
   
   before(:each) do
     @helper = TestActionView.new
+    @helper.stub!(:url_for).and_return('/quotes/index')
     @helper.stub!(:params).and_return(params_base)
     @helper.stub!(:sort_column).and_return("price")
     @helper.stub!(:sort_direction).and_return("asc")
