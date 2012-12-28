@@ -65,7 +65,6 @@ In you controller define a default sort
 
 - Add error handling to active record sortable
 - Add the ability to customize the sort and direction parameters
-- Add caching of the query relation for the active record sort method
 - Define scopes for each sort defined (individual sort scopes)
 
 ## Contributing

@@ -1,3 +1,4 @@
+require 'memoist'
 require 'active_record'
 
 module Sortable
@@ -5,6 +6,10 @@ module Sortable
     def self.included(base)
       base.class_eval do
         extend ClassMethods
+        
+        class << self; extend Memoist; self; end.memoize :sort
+        
+        
         class_attribute :sort_columns, :default_sort_columns
       end
     end
