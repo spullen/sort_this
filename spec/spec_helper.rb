@@ -3,6 +3,7 @@ require 'sqlite3'
 require 'active_record'
 require 'factory_girl'
 require 'database_cleaner'
+require 'capybara'
 require 'rspec'
 
 require 'sortable'
