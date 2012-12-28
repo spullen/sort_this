@@ -10,7 +10,7 @@ Here is an [example app](https://github.com/spullen/sort_example) that demonstra
 
 Add this line to your application's Gemfile:
 
-    gem 'sort_this', :git => 'git://github.com/spullen/sort_this.git'
+    gem 'sort_this'
 
 And then execute:
 
