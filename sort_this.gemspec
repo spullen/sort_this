@@ -19,11 +19,4 @@ Gem::Specification.new do |gem|
   
   gem.add_dependency 'rails', '>= 3.0'
   gem.add_dependency 'memoist', '0.2.0'
-  
-  gem.add_development_dependency 'rspec', '2.12.0'
-  gem.add_development_dependency 'sqlite3', '1.3.6'
-  gem.add_development_dependency 'factory_girl', '4.1.0'
-  gem.add_development_dependency 'database_cleaner', '0.9.1'
-  gem.add_development_dependency 'capybara', '2.0.1'
-  gem.add_development_dependency 'rake'
 end
