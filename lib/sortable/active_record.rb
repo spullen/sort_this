@@ -2,11 +2,6 @@ require 'active_record'
 
 module Sortable
   module ActiveRecord
-    SORT_ASC                = 'ASC'
-    SORT_DESC               = 'DESC'
-    DEFAULT_SORT_DIRECTION  = SORT_ASC
-    VALID_SORT_DIRECTIONS   = [SORT_ASC, SORT_DESC]
-    
     def self.included(base)
       base.class_eval do
         extend ClassMethods
