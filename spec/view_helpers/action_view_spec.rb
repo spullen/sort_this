@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+# there's probably a better way to test this
+# check out https://github.com/mislav/will_paginate/blob/master/spec/view_helpers/action_view_spec.rb#L28
+
 class TestActionView < ActionView::Base
   include Sortable::ViewHelpers::ActionView
 end
