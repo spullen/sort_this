@@ -20,7 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rails', '>= 3.0'
   gem.add_dependency 'memoist', '0.2.0'
   
-  gem.add_development_dependency 'debugger', '1.2.2'
   gem.add_development_dependency 'rspec', '2.12.0'
   gem.add_development_dependency 'sqlite3', '1.3.6'
   gem.add_development_dependency 'factory_girl', '4.1.0'

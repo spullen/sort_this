@@ -1,4 +1,3 @@
-require 'debugger'
 require 'sqlite3'
 require 'active_record'
 require 'factory_girl'
