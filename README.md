@@ -67,14 +67,23 @@ In you controller define a default sort
     
 ## TODO:
 
-- Add error handling to active record sortable
-- Add the ability to customize the sort and direction parameters
+Defined Highest to Lowest priority
+
+- Being able to define multiple column sorts
+
+    Something like:
+    sort_this :some_crazy_sort => {
+      [
+        {:column_name => :some_column, other options},
+        ...
+      ]
+    }
+    
+    not sure how that'd be called though...
+
 - Define scopes for each sort defined (individual sort scopes)
-
+- Add the ability to customize the sort and direction parameters
 - Testing on different databases (should probably hit postgresql and mysql unless the way SQLite handles it in the same way)
-
-Lower priority:
-
 - Define rails 3.0 with ruby 1.8.7 gemfile for travis ci tests as 1.8.7 is still prevelant for 3.0
 
 ## Contributing
