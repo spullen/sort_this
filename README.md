@@ -1,6 +1,10 @@
 # Sortable
 
-[the idea/scratch work](https://gist.github.com/e8dbf5c651f6744faeda)
+Sortable provides a way to sort.
+
+The controller/view code is based off of railscasts [episode 228 - Sortable Table Columns](http://railscasts.com/episodes/228-sortable-table-columns).
+
+Here is an [example app](https://github.com/spullen/sort_example) that demonstrates the usage.
 
 ## Installation
 
@@ -66,6 +70,8 @@ In you controller define a default sort
 - Add error handling to active record sortable
 - Add the ability to customize the sort and direction parameters
 - Define scopes for each sort defined (individual sort scopes)
+
+- Testing on different databases (should probably hit postgresql and mysql unless the way SQLite handles it in the same way)
 
 ## Contributing
 
