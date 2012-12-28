@@ -73,6 +73,10 @@ In you controller define a default sort
 
 - Testing on different databases (should probably hit postgresql and mysql unless the way SQLite handles it in the same way)
 
+Lower priority:
+
+- Define rails 3.0 with ruby 1.8.7 gemfile for travis ci tests as 1.8.7 is still prevelant for 3.0
+
 ## Contributing
 
 1. Fork it
