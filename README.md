@@ -60,6 +60,12 @@ In you controller define a default sort
     or custom title
 
     <%= sortable("sort_name", "Sort Different Name") %>
+    
+## TODO:
+
+- Add error handling to active record sortable
+- Add the ability to customize the sort and direction parameters
+- Add caching of the query relation for the active record sort method
 
 ## Contributing
 
