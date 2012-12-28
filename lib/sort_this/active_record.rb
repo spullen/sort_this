@@ -56,7 +56,7 @@ module SortThis
             default_sort_direction = sort_options[:default].upcase
             
             unless VALID_SORT_DIRECTIONS.include?(default_sort_direction)
-              raise SortDirectionError, "Invalid sort direction for: #{sort_name}. Must be 'ASC'/'asc' or 'DESC'/'desc'"
+              raise SortThisError, "Invalid sort direction for: #{sort_name}. Must be 'ASC'/'asc' or 'DESC'/'desc'."
             end   
             
             self.default_sort_columns[sort_name] = "#{clause} #{default_sort_direction}"

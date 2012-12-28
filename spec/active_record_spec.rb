@@ -118,7 +118,7 @@ describe SortThis::ActiveRecord do
         it 'should raise a SortDirectionError' do
           lambda {
             Quote.sort_this sort_name => {:column_name => column_name_option, :default => default_option, :clause => clause_option}
-          }.should raise_error(SortThis::SortDirectionError, "Invalid sort direction for: #{sort_name}. Must be 'ASC'/'asc' or 'DESC'/'desc'")
+          }.should raise_error(SortThis::SortThisError, "Invalid sort direction for: #{sort_name}. Must be 'ASC'/'asc' or 'DESC'/'desc'.")
         end
       end
     end
