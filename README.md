@@ -1,5 +1,6 @@
 # SortThis
 
+
 SortThis provides a way to sort.
 
 The controller/view code is based off of railscasts [episode 228 - Sortable Table Columns](http://railscasts.com/episodes/228-sortable-table-columns).
