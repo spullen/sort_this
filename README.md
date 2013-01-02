@@ -81,6 +81,7 @@ Defined Highest to Lowest priority
     
     not sure how that'd be called though...
 
+- Define a default scope and remove from the sort method, gives more control to developer.
 - Define scopes for each sort defined (individual sort scopes)
 - Add the ability to customize the sort and direction parameters
 - Testing on different databases (should probably hit postgresql and mysql unless the way SQLite handles it in the same way)
