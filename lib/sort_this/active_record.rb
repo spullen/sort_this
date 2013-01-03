@@ -64,8 +64,10 @@ module SortThis
             self.default_sort_columns[sort_name] = "#{clause} #{default_sort_direction}"
           end
         end
-        
-        scope :default_sort, order(self.default_sort_columns.values.join(', '))
+      end
+      
+      def default_sort
+        order(self.default_sort_columns.values.join(', '))
       end
       
       def sort(sort_column = nil, sort_direction = DEFAULT_SORT_DIRECTION)
