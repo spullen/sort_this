@@ -30,10 +30,14 @@ def teardown_db
 end
 
 class Product < ActiveRecord::Base
+  include SortThis::ActiveRecord
+
   has_many :quotes
 end
 
 class Vendor < ActiveRecord::Base
+  include SortThis::ActiveRecord
+
   has_many :quotes
 end
 

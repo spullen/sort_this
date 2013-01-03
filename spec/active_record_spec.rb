@@ -192,6 +192,18 @@ describe SortThis::ActiveRecord do
     end
   end
   
+  describe '.default_sort' do
+    let!(:product1) { create(:product, :name => 'D Name') }
+    let!(:product2) { create(:product, :name => 'B Name') }
+    let!(:product3) { create(:product, :name => 'A Name') }
+    let!(:product4) { create(:product, :name => 'C Name') }
+    
+    it 'should return a sorted collection given by the specified default sort' do
+      Product.sort_this(:name => { :column_name => :name, :default => 'DESC' })
+      Product.default_sort.should == [product1, product4, product2, product3]
+    end
+  end
+  
   describe '.sort' do
     let!(:product1) { create(:product, :name => 'D Name') }
     let!(:product2) { create(:product, :name => 'B Name') }

@@ -9,7 +9,6 @@ module SortThis
         
         class << self; extend Memoist; self; end.memoize :sort
         
-        
         class_attribute :sort_columns, :default_sort_columns
       end
     end
@@ -64,8 +63,9 @@ module SortThis
             
             self.default_sort_columns[sort_name] = "#{clause} #{default_sort_direction}"
           end
-          
         end
+        
+        scope :default_sort, order(self.default_sort_columns.values.join(', '))
       end
       
       def sort(sort_column = nil, sort_direction = DEFAULT_SORT_DIRECTION)
