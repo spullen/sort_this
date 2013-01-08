@@ -7,7 +7,7 @@ module SortThis
       base.class_eval do
         extend ClassMethods
         
-        class << self; extend Memoist; self; end.memoize :sort
+        class << self; extend Memoist; self; end.memoize :sort, :default_sort
         
         class_attribute :sort_columns, :default_sort_columns
       end
@@ -18,9 +18,9 @@ module SortThis
       #
       # Input is a hash of sort_name => sort_options pairs
       #
-      # :column_name  => (optional) Column name to sort on
+      # :column_name  => (optional) Column name to sort on, if left blank it will use the sort_name
       # :default      => (optional) 'ASC'|'DESC'
-      # :table_name   => (optional)
+      # :table_name   => (optional) Override the table name, required if using joins
       # :joins        => (optional) Association to join on. Note: must be an association of the model being sorted.
       #                             Prefixes the column_name with the table name to prevent collisions
       # :clause       => (optional) Override the clause of the sort
@@ -33,27 +33,26 @@ module SortThis
       #
       # :sort_name1 => { :column_name => :quantity }
       # :sort_name2 => { :column_name => :price, :default => 'DESC' }
-      # :sort_name3 => { :column_name => :name, :joins => :product }
+      # :sort_name3 => { :column_name => :name, :table_name => 'products', :joins => :product }
       #
       def sort_this(sorts = {})
         self.sort_columns = {}
         self.default_sort_columns = {}
         
-        empty_sort_options = { :column_name => nil, :default => nil, :joins => nil, :clause => nil }
+        empty_sort_options = { :column_name => nil, :default => nil, :table_name => nil, :joins => nil, :clause => nil }
         
         sorts.each do |sort_name, sort_options|
           sort_options = empty_sort_options.merge(sort_options)
           
           self.sort_columns[sort_name] = sort_options
           
-          column  = sort_options[:column_name]
+          column  = (sort_options[:column_name].blank?) ? sort_name             : sort_options[:column_name]
+          table   = (sort_options[:table_name].blank?)  ? table_name            : sort_options[:table_name].to_s.pluralize
+          clause  = (sort_options[:clause].blank?)      ? "#{table}.#{column}"  : sort_options[:clause]
           
-          raise SortThisError, "column_name option for #{sort_name} is required." if column.blank?
-          
-          table   = (sort_options[:joins].blank?)   ? table_name            : sort_options[:joins].to_s.pluralize
-          clause  = (sort_options[:clause].blank?)  ? "#{table}.#{column}"  : sort_options[:clause]
-          
-          self.sort_columns[sort_name][:clause] = clause if sort_options[:clause].blank?
+          self.sort_columns[sort_name][:column_name]  = column
+          self.sort_columns[sort_name][:table_name]   = table
+          self.sort_columns[sort_name][:clause]       = clause
           
           unless sort_options[:default].blank?
             default_sort_direction = sort_options[:default].upcase

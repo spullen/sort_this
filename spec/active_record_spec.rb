@@ -43,6 +43,10 @@ describe SortThis::ActiveRecord do
           Quote.sort_columns[sort_name][:default].should == default_option
         end
         
+        it 'should properly set the table_name' do
+          Quote.sort_columns[sort_name][:table_name].should == table_name_option
+        end
+        
         it 'should properly set the joins option' do
           Quote.sort_columns[sort_name][:joins].should == joins_option
         end
@@ -67,19 +71,29 @@ describe SortThis::ActiveRecord do
       end
     end
     
-    context 'given a sort column that does not specify the column name' do
-      let!(:sort_name) { :test }
+    context 'given a sort column with no options specified' do
+      let!(:sort_name)          { :price }
+      let!(:column_name_option) { :price }
+      let!(:table_name_option)  { 'quotes' }
+      let!(:default_option)     { nil }
+      let!(:joins_option)       { nil }
+      let!(:clause_option)      { "quotes.price" }
       
-      it 'should raise a SortThisError' do
-        lambda {
-          Quote.sort_this sort_name => {}
-        }.should raise_error(SortThis::SortThisError, "column_name option for #{sort_name} is required.")
+      before(:each) do
+        Quote.sort_this sort_name => {}
+      end
+      
+      it_should_behave_like 'sort_columns_defined'
+      
+      it 'should set default_sort_columns to an empty hash' do
+        Quote.default_sort_columns.should == {}
       end
     end
     
     context 'given a sort column with just the required sort options' do
       let!(:sort_name)          { :price }
       let!(:column_name_option) { :price }
+      let!(:table_name_option)  { 'quotes' }
       let!(:default_option)     { nil }
       let!(:joins_option)       { nil }
       let!(:clause_option)      { "quotes.price" }
@@ -99,6 +113,7 @@ describe SortThis::ActiveRecord do
       context 'when the default is valid' do
         let!(:sort_name)          { :price }
         let!(:column_name_option) { :price }
+        let!(:table_name_option)  { 'quotes' }
         let!(:default_option)     { 'DESC' }
         let!(:joins_option)       { nil }
         let!(:clause_option)      { "quotes.price" }
@@ -121,6 +136,7 @@ describe SortThis::ActiveRecord do
       context 'when the default is not ASC or DESC' do
         let!(:sort_name)          { :quantity }
         let!(:column_name_option) { :quantity }
+        let!(:table_name_option)  { 'quotes' }
         let!(:default_option)     { 'GARBAGE' }
         let!(:joins_option)       { nil }
         let!(:clause_option)      { "custom.joins_clause" }
@@ -136,12 +152,13 @@ describe SortThis::ActiveRecord do
     context 'given a sort column with a joins specified in the sort options' do
       let!(:sort_name)          { :product_name }
       let!(:column_name_option) { :name }
+      let!(:table_name_option)  { 'products' }
       let!(:default_option)     { nil }
       let!(:joins_option)       { :product }
       let!(:clause_option)      { "products.name" }
 
       before(:each) do
-        Quote.sort_this sort_name => {:column_name => column_name_option, :joins => joins_option}
+        Quote.sort_this sort_name => {:column_name => column_name_option, :table_name => table_name_option, :joins => joins_option}
       end
       
       it_should_behave_like 'sort_columns_defined'
@@ -154,6 +171,7 @@ describe SortThis::ActiveRecord do
     context 'given a sort column with a custom clause specified in the sort options' do
       let!(:sort_name)          { :price }
       let!(:column_name_option) { :price }
+      let!(:table_name_option)  { 'quotes' }
       let!(:default_option)     { nil }
       let!(:joins_option)       { nil }
       let!(:clause_option)      { "custom.joins_clause" }
@@ -172,6 +190,7 @@ describe SortThis::ActiveRecord do
     context 'given a sort column with a custom clause and default specified in the sort options' do
       let!(:sort_name)          { :quantity }
       let!(:column_name_option) { :quantity }
+      let!(:table_name_option)  { 'quotes' }
       let!(:default_option)     { 'DESC' }
       let!(:joins_option)       { nil }
       let!(:clause_option)      { "custom.joins_clause" }
@@ -188,6 +207,40 @@ describe SortThis::ActiveRecord do
       
       it 'should set the clause of the default_sort_columns for the specified sort name' do
         Quote.default_sort_columns[sort_name].should == "#{clause_option} #{default_option}"
+      end
+    end
+    
+    context 'given a sort column where the table name is overridden' do
+      context 'when the table name option is already pluralized' do
+        let!(:sort_name)          { :price }
+        let!(:column_name_option) { :price }
+        let!(:table_name_option)  { 'some_other_tables' }
+        let!(:default_option)     { nil }
+        let!(:joins_option)       { nil }
+        let!(:clause_option)      { "some_other_tables.price" }
+        
+        before(:each) do
+          Quote.sort_this sort_name => {:table_name => table_name_option}
+        end
+        
+        it_should_behave_like 'sort_columns_defined'
+      end
+      
+      context 'when the table name option is not pluralized' do
+        let!(:table_name_singular) { 'another_table' }
+        
+        let!(:sort_name)          { :price }
+        let!(:column_name_option) { :price }
+        let!(:table_name_option)  { 'another_tables' }
+        let!(:default_option)     { nil }
+        let!(:joins_option)       { nil }
+        let!(:clause_option)      { "another_tables.price" }
+        
+        before(:each) do
+          Quote.sort_this sort_name => {:table_name => table_name_option}
+        end
+        
+        it_should_behave_like 'sort_columns_defined'
       end
     end
   end
@@ -223,8 +276,12 @@ describe SortThis::ActiveRecord do
     before(:each) do
       Quote.sort_this :price         => {:column_name => :price, :default => 'ASC'},
                       :quantity      => {:column_name => :quantity},
-                      :product_name  => {:column_name => :name, :joins => :product},
-                      :vendor_name   => {:column_name => :name, :joins => :vendor}
+                      :product_name  => {:column_name => :name, :table_name => 'products', :joins => :product},
+                      :vendor_name   => {:column_name => :name, :table_name => 'vendors', :joins => :vendor}
+    end
+    
+    it 'should return a relation' do
+      Quote.sort.class.should == ActiveRecord::Relation
     end
     
     context 'default parameters' do

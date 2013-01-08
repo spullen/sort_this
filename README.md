@@ -24,7 +24,7 @@ Add a call to the `sortable` method with a hash of sorts
 
     class YourModel < ActiveRecord::Base
       
-      sort_this :sort_name => {:column_name => :name, :default => 'ASC', :joins => :association, :clause => "some.clause"}
+      sort_this :sort_name => {:column_name => :name, :default => 'ASC', :table_name => 'some_other_table_name', :joins => :association, :clause => "some.clause"}
       
     end
     
@@ -34,15 +34,15 @@ The options are
     
     Sort Options:
     
-      column_name: (Optional) The name of the column to sort on. If left blank it will use the sort name
+      column_name: (Optional) The name of the column to sort on. If left blank it will use the sort name.
       default:     (Optional) Defines a default sort if provided. The valid options are 'ASC' or 'DESC'.
-      table_name   (Optional) The table name, to be used when the joins clause is used.
-      joins:       (Optional) Defines an association to join on, this should be provided if the column is in another table.
+      table_name   (Optional) Overrides the table name used, should usually be used in coordination with joins.
+      joins:       (Optional) Defines an association to join on, this should be provided if the column is in another table. ** Requires table name to be set. **
       clause:      (Optional) Overrides the clause used for the sort.
       
 Then to sort
 
-    YourModel.sort("sort_name", "asc|desc") => sorted list of YourModel objects
+    YourModel.sort("sort_name", "asc|desc|ASC|DESC") => sorted list of YourModel objects
     
 ### Controller
 
@@ -70,17 +70,18 @@ In you controller define a default sort
 
 Defined Highest to Lowest priority
 
+- Throw error when the table_name option is not set and joins is set.
 - Being able to define multiple column sorts
 
-    Something like:
-    sort_this :some_crazy_sort => {
-      [
-        {:column_name => :some_column, other options},
-        ...
-      ]
-    }
+      Something like:
+      sort_this :some_crazy_sort => {
+        [
+          {:column_name => :some_column, other options},
+          ...
+        ] 
+      }
     
-    not sure how that'd be called though...
+      not sure how that'd be called though...
 
 - Define a default scope and remove from the sort method, gives more control to developer.
 - Define scopes for each sort defined (individual sort scopes)
