@@ -22,7 +22,6 @@ module SortThis
       # :default      => (optional) 'ASC'|'DESC'
       # :table_name   => (optional) Override the table name, required if using joins
       # :joins        => (optional) Association to join on. Note: must be an association of the model being sorted.
-      #                             Prefixes the column_name with the table name to prevent collisions
       # :clause       => (optional) Override the clause of the sort
       #
       # ex.

@@ -38,6 +38,7 @@ The options are
       default:     (Optional) Defines a default sort if provided. The valid options are 'ASC' or 'DESC'.
       table_name   (Optional) Overrides the table name used, should usually be used in coordination with joins.
       joins:       (Optional) Defines an association to join on, this should be provided if the column is in another table. ** Requires table name to be set. **
+                              This is what you would usually pass into a joins or includes clause for ActiveRecord.
       clause:      (Optional) Overrides the clause used for the sort.
       
 Then to sort
