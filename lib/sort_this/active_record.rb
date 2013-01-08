@@ -66,7 +66,19 @@ module SortThis
       end
       
       def default_sort
-        order(self.default_sort_columns.values.join(', '))
+        table_joins   = []
+        order_clauses = []
+        
+        self.default_sort_columns.each do |column_name, sort_clause|
+          join = sort_columns[column_name][:joins]
+          table_joins   << join unless join.nil?
+          order_clauses << sort_clause
+        end
+        
+        query = scoped
+        query = joins(table_joins.uniq!) unless table_joins.empty?
+        query = query.order(order_clauses.join(', '))
+        query
       end
       
       def sort(sort_column = nil, sort_direction = DEFAULT_SORT_DIRECTION)
@@ -91,7 +103,7 @@ module SortThis
         
         default_sorts.each do |column_name, sort_clause|
           join = sort_columns[column_name][:joins]
-          tables_joins  << join unless join.nil?
+          table_joins   << join unless join.nil?
           order_clauses << sort_clause
         end
         
