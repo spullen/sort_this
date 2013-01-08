@@ -8,3 +8,7 @@
 * added a table_name option to use when using joins
 * added default_sort class method
 * sort and default_sort are memoized
+
+## v1.0.2
+
+* fixing bug due to typo
