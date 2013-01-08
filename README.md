@@ -34,8 +34,9 @@ The options are
     
     Sort Options:
     
-      column_name: (Required) The name of the column to sort on.
+      column_name: (Optional) The name of the column to sort on. If left blank it will use the sort name
       default:     (Optional) Defines a default sort if provided. The valid options are 'ASC' or 'DESC'.
+      table_name   (Optional) The table name, to be used when the joins clause is used.
       joins:       (Optional) Defines an association to join on, this should be provided if the column is in another table.
       clause:      (Optional) Overrides the clause used for the sort.
       
