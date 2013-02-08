@@ -75,14 +75,14 @@ module SortThis
           order_clauses << sort_clause
         end
         
-        query = scoped
+        query = base_query
         query = joins(table_joins.uniq!) unless table_joins.empty?
         query = query.order(order_clauses.join(', '))
         query
       end
       
       def sort(sort_column = nil, sort_direction = DEFAULT_SORT_DIRECTION)
-        query = scoped
+        query = base_query
     
         # sanitize the sort column and direction
         sort_column     = sort_column.to_s.downcase.to_sym
@@ -114,6 +114,16 @@ module SortThis
         
         query
       end
+
+      private
+
+        def base_query
+          if Rails.version < '4.0'
+            scoped
+          else
+            all
+          end
+        end
       
     end
   end

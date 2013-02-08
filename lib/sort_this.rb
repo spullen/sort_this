@@ -1,3 +1,5 @@
+require 'rails'
+
 require 'sort_this/version'
 require 'sort_this/sort_this_error'
 require 'sort_this/active_record'
