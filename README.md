@@ -71,7 +71,10 @@ In you controller define a default sort
 
 Defined Highest to Lowest priority
 
-- Throw error when the table_name option is not set and joins is set.
+- Options on the `sortable` controller options
+    - Limiting which actions it can be applied on
+    - Allowing different types of sorts for different actions (defining multiple sortables)
+    - Customized sort parameters
 - Being able to define multiple column sorts
 
       Something like:
@@ -84,11 +87,9 @@ Defined Highest to Lowest priority
     
       not sure how that'd be called though...
 
+- Throw error when the table_name option is not set and joins is set.
 - Define a default scope and remove from the sort method, gives more control to developer.
 - Define scopes for each sort defined (individual sort scopes)
-- Add the ability to customize the sort and direction parameters
-- Testing on different databases (should probably hit postgresql and mysql unless the way SQLite handles it in the same way)
-- Define rails 3.0 with ruby 1.8.7 gemfile for travis ci tests as 1.8.7 is still prevelant for 3.0
 
 ## Contributing
 
