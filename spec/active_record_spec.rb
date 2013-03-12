@@ -280,10 +280,6 @@ describe SortThis::ActiveRecord do
                       :vendor_name   => {:column_name => :name, :table_name => 'vendors', :joins => :vendor}
     end
     
-    it 'should return a relation' do
-      Quote.sort.class.should == ActiveRecord::Relation
-    end
-    
     context 'default parameters' do
       it 'should sort by quote price ascending' do
         Quote.sort.should == [quote3, quote2, quote1, quote4]
