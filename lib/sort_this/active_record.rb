@@ -7,8 +7,6 @@ module SortThis
       base.class_eval do
         extend ClassMethods
         
-        class << self; extend Memoist; self; end.memoize :sort, :default_sort
-        
         class_attribute :sort_columns, :default_sort_columns
       end
     end

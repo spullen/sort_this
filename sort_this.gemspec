@@ -18,5 +18,4 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   
   gem.add_dependency 'rails', '>= 3.0'
-  gem.add_dependency 'memoist', '0.2.0'
 end
