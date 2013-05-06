@@ -1,4 +1,3 @@
-require 'memoist'
 require 'active_record'
 
 module SortThis

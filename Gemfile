@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0.rc1', github: 'rails/rails', branch: 'master'
+gem 'rails', '~> 4.0.0.rc1'
 
 gem 'rspec', '2.12.0'
 gem 'sqlite3'
