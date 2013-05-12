@@ -75,6 +75,7 @@ Defined Highest to Lowest priority
     - Limiting which actions it can be applied on
     - Allowing different types of sorts for different actions (defining multiple sortables)
     - Customized sort parameters
+- Test helpers to verify that sorts have been declared properly
 - Being able to define multiple column sorts
 
       Something like:
